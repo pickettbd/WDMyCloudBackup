@@ -25,7 +25,7 @@ mycloud_error()
 set -o pipefail
 
 # check if we can ssh in
-ssh "${MYCLOUD}" 'crontab -l'
+ssh "${MYCLOUD}" 'crontab -l' &> /dev/null
 
 if [ $? -ne 0 ]
 then
