@@ -38,6 +38,19 @@ fi
 # set pipefail back to normal
 set +o pipefail
 
+# make sure the job is still on cron
+CRON_FILE="/var/spool/cron/crontabs/root"
+cat /var/spool/cron/crontabs/root | grep '/home/root/backup.sh' &> /dev/null
+if [ $? -ne 0 ]
+then
+	TMP=/tmp/$$
+	cat /var/spool/cron/crontabs/root > "${TMP}"
+	printf "%s\n" '4 */3 * * * /home/root/backup.sh &' >> "${TMP}"
+	crontab "${TMP}"
+	rm -f "${TMP}"
+fi
+
+
 # exit 
 exit 0
 
