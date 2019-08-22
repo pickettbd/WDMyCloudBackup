@@ -22,13 +22,13 @@ then
 	BK_PROC=`printf "%s" "${BK_PROC}" | sed -r 's/ +/ /g' | sed -r 's/^ //' | cut -d ' ' -f 1`
 
 	# display a message
-	printf "%s\t%s\n" `date '+%Y%m%d-%H:%M:%S'` "Backup was already running (pid: ${BK_PROC})." >> "~/backups.log"
+	printf "%s\t%s\n" `date '+%Y%m%d-%H:%M:%S'` "Backup was already running (pid: ${BK_PROC})." >> "/home/root/backups.log"
 
 else
 	unset EXIT_CODE
 
 	# It wasn't running, now report and run
-	printf "%s\t%s\n" `date '+%Y%m%d-%H:%M:%S'` "Backup started." >> "~/backups.log"
+	printf "%s\t%s\n" `date '+%Y%m%d-%H:%M:%S'` "Backup started." >> "/home/root/backups.log"
 
 	# run the backup
 	(usb_backup -a mycloud2easyshar -c jobrun &)
